@@ -1,0 +1,1 @@
+git submodule add https://github.com/macaba/ESP32AudioLibrary ExampleDir/components/ESP32AudioLibrary
