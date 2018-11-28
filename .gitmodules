@@ -1,0 +1,3 @@
+[submodule "Sine/components/ESP32AudioLibrary"]
+	path = Sine/components/ESP32AudioLibrary
+	url = https://github.com/macaba/ESP32AudioLibrary
