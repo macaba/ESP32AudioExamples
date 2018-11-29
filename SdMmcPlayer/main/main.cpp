@@ -1,4 +1,4 @@
-//Example: Sine
+//Example: SdMmcPlayer
 
 #include "Audio.h"
 #include <stdio.h>
@@ -6,6 +6,8 @@
 #include "freertos/task.h"
 #include "esp_system.h"
 #include "esp_spi_flash.h"
+#include "CpuStats.h"
+#include "CpuDisplay.h"
 
 AudioControlI2S          i2s;
 AudioControlPCM3060      pcm3060;
@@ -14,8 +16,12 @@ AudioControlPCM3060      pcm3060;
 AudioInputI2S            i2sInput1;           //xy=401,596
 AudioOutputI2S           i2sOutput1;           //xy=750,560
 AudioPlaySdMmcWav        playSdMmc1;
-AudioConnection          patchCord3(playSdMmc1, 0, i2sOutput1, 0);
-AudioConnection          patchCord4(playSdMmc1, 1, i2sOutput1, 1);
+AudioMixer4               mixer1;
+AudioMixer4               mixer2;
+AudioConnection          patchCord1(playSdMmc1, 0, mixer1, 0);
+AudioConnection          patchCord2(playSdMmc1, 1, mixer2, 0);
+AudioConnection          patchCord3(mixer1, 0, i2sOutput1, 0);
+AudioConnection          patchCord4(mixer2, 0, i2sOutput1, 1);
 // GUItool: end automatically generated code
 
 void audioTask( void * parameter )
@@ -26,12 +32,32 @@ void audioTask( void * parameter )
   }
 }
 
+void displayTask( void * parameter )
+{
+  for(;;){
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    cpuDisplay();
+  }
+}
+
+void playTask( void * parameter )
+{
+  vTaskDelay(3000 / portTICK_PERIOD_MS);
+  for(;;){
+    playSdMmc1.loadFile("/sdcard/DR660Synthbass.wav");
+    vTaskDelay(6000 / portTICK_PERIOD_MS);
+  }
+}
+
 extern "C" {
    void app_main();
 }
 
 void app_main()
 {
+    StartMonitoringCPU0();
+    StartMonitoringCPU1();
+
     /* Print chip information */
     esp_chip_info_t chip_info;
     esp_chip_info(&chip_info);
@@ -49,7 +75,10 @@ void app_main()
     i2s.default_codec_rx_tx_24bit();
     vTaskDelay(1000/portTICK_RATE_MS);
     pcm3060.init();
+    mixer1.gain(0, 0.4);
+    mixer2.gain(0, 0.4);
 
-    playSdMmc1.loadFile("/sdcard/DR660 Synthbass.wav");
     xTaskCreatePinnedToCore(audioTask, "AudioTask", 10000, NULL, configMAX_PRIORITIES - 1, NULL, 1);
+    xTaskCreatePinnedToCore(displayTask, "DisplayTask", 10000, NULL, 2, NULL, 1);
+    xTaskCreatePinnedToCore(playTask, "PlayTask", 10000, NULL, 2, NULL, 1);
 }

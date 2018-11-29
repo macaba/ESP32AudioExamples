@@ -5,7 +5,5 @@
 
 PROJECT_NAME := sine
 
-EXTRA_COMPONENT_DIRS += $(PROJECT_PATH)/../../../
-
 include $(IDF_PATH)/make/project.mk
 
