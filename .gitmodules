@@ -10,3 +10,6 @@
 [submodule "SdMmcPlayer/components/ESP32AudioLibrary"]
 	path = SdMmcPlayer/components/ESP32AudioLibrary
 	url = https://github.com/macaba/ESP32AudioLibrary
+[submodule "AFSTwoTwoSine/components/ESP32AudioLibrary"]
+	path = AFSTwoTwoSine/components/ESP32AudioLibrary
+	url = https://github.com/macaba/ESP32AudioLibrary
