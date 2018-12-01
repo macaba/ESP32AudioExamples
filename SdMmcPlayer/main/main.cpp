@@ -13,15 +13,21 @@ AudioControlI2S          i2s;
 AudioControlPCM3060      pcm3060;
 
 // GUItool: begin automatically generated code
-AudioInputI2S            i2sInput1;           //xy=401,596
-AudioOutputI2S           i2sOutput1;           //xy=750,560
+AudioInputI2S            i2sInput;           //xy=401,596
+AudioOutputI2S           i2sOutput;           //xy=750,560
 AudioPlaySdMmcWav        playSdMmc1;
-AudioMixer4               mixer1;
-AudioMixer4               mixer2;
-AudioConnection          patchCord1(playSdMmc1, 0, mixer1, 0);
-AudioConnection          patchCord2(playSdMmc1, 1, mixer2, 0);
-AudioConnection          patchCord3(mixer1, 0, i2sOutput1, 0);
-AudioConnection          patchCord4(mixer2, 0, i2sOutput1, 1);
+AudioPlaySdMmcWav        playSdMmc2;
+AudioPlaySdMmcWav        playSdMmc3;
+AudioMixer4              mixerLeft;
+AudioMixer4              mixerRight;
+AudioConnection          patchCord1(playSdMmc1, 0, mixerLeft, 0);
+AudioConnection          patchCord2(playSdMmc1, 1, mixerRight, 0);
+AudioConnection          patchCord3(playSdMmc2, 0, mixerLeft, 1);
+AudioConnection          patchCord4(playSdMmc2, 1, mixerRight, 1);
+AudioConnection          patchCord5(playSdMmc3, 0, mixerLeft, 2);
+AudioConnection          patchCord6(playSdMmc3, 1, mixerRight, 2);
+AudioConnection          patchCord7(mixerLeft, 0, i2sOutput, 0);
+AudioConnection          patchCord8(mixerRight, 0, i2sOutput, 1);
 // GUItool: end automatically generated code
 
 void audioTask( void * parameter )
@@ -35,17 +41,18 @@ void audioTask( void * parameter )
 void displayTask( void * parameter )
 {
   for(;;){
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    vTaskDelay(5000 / portTICK_PERIOD_MS);
     cpuDisplay();
   }
 }
 
 void playTask( void * parameter )
 {
-  vTaskDelay(3000 / portTICK_PERIOD_MS);
   for(;;){
-    playSdMmc1.loadFile("/sdcard/DR660Synthbass.wav");
-    vTaskDelay(6000 / portTICK_PERIOD_MS);
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+    playSdMmc2.playFile("/sdcard/DR660 Synthbass i16.wav");
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+    playSdMmc3.playFile("/sdcard/DR660 Cymbal Crash.wav");
   }
 }
 
@@ -75,8 +82,12 @@ void app_main()
     i2s.default_codec_rx_tx_24bit();
     vTaskDelay(1000/portTICK_RATE_MS);
     pcm3060.init();
-    mixer1.gain(0, 0.4);
-    mixer2.gain(0, 0.4);
+    mixerLeft.gain(0, 0.3);
+    mixerRight.gain(0, 0.3);
+    mixerLeft.gain(1, 0.05);
+    mixerRight.gain(1, 0.05);
+    mixerLeft.gain(2, 0.1);
+    mixerRight.gain(2, 0.1);
 
     xTaskCreatePinnedToCore(audioTask, "AudioTask", 10000, NULL, configMAX_PRIORITIES - 1, NULL, 1);
     xTaskCreatePinnedToCore(displayTask, "DisplayTask", 10000, NULL, 2, NULL, 1);
