@@ -1,4 +1,0 @@
-git submodule add https://github.com/macaba/ESP32AudioLibrary ExampleDir/components/ESP32AudioLibrary
-
-or (might be better after checking out the audio library into a higher level folder)
-mklink /D ESP32AudioLibrary C:\msys32\home\<user>\esp\ESP32AudioLibrary
