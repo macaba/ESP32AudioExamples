@@ -3,9 +3,9 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := sine
+PROJECT_NAME := a2dpinput
 
 EXTRA_COMPONENT_DIRS += $(PROJECT_PATH)/../../../
-
+EXTRA_COMPONENT_DIRS += ../../ESP32AudioLibrary
 include $(IDF_PATH)/make/project.mk
 

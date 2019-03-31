@@ -5,6 +5,6 @@
 
 PROJECT_NAME := afstwotwosine
 
-EXTRA_COMPONENT_DIRS += ../ESP32AudioLibrary
+EXTRA_COMPONENT_DIRS += ../../ESP32AudioLibrary
 include $(IDF_PATH)/make/project.mk
 
