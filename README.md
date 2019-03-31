@@ -1,5 +1,8 @@
 # ESP32AudioLibraryExamples
 
+## Clone
+
+`git clone --recursive https://github.com/macaba/ESP32AudioLibraryExamples.git`
 
 ## Running under windows in WSL
 
