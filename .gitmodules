@@ -1,15 +1,3 @@
-[submodule "Sine/components/ESP32AudioLibrary"]
-	path = Sine/components/ESP32AudioLibrary
-	url = https://github.com/macaba/ESP32AudioLibrary
-[submodule "SineEnvelope/components/ESP32AudioLibrary"]
-	path = SineEnvelope/components/ESP32AudioLibrary
-	url = https://github.com/macaba/ESP32AudioLibrary
-[submodule "A2DPInput/components/ESP32AudioLibrary"]
-	path = A2DPInput/components/ESP32AudioLibrary
-	url = https://github.com/macaba/ESP32AudioLibrary
-[submodule "SdMmcPlayer/components/ESP32AudioLibrary"]
-	path = SdMmcPlayer/components/ESP32AudioLibrary
-	url = https://github.com/macaba/ESP32AudioLibrary
-[submodule "AFSTwoTwoSine/components/ESP32AudioLibrary"]
-	path = AFSTwoTwoSine/components/ESP32AudioLibrary
+[submodule "ESP32AudioLibrary"]
+	path = ESP32AudioLibrary
 	url = https://github.com/macaba/ESP32AudioLibrary
