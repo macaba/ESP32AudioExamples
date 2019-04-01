@@ -5,7 +5,6 @@
 
 PROJECT_NAME := sine
 
-EXTRA_COMPONENT_DIRS += $(PROJECT_PATH)/../../../
 EXTRA_COMPONENT_DIRS += ../../ESP32AudioLibrary
 include $(IDF_PATH)/make/project.mk
 

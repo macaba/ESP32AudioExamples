@@ -3,7 +3,7 @@
 # project subdirectory.
 #
 
-PROJECT_NAME := sine
+PROJECT_NAME := sdmmcplayer
 
 EXTRA_COMPONENT_DIRS += ../../ESP32AudioLibrary
 include $(IDF_PATH)/make/project.mk

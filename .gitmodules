@@ -1,3 +1,3 @@
 [submodule "ESP32AudioLibrary"]
 	path = ESP32AudioLibrary
-	url = https://github.com/macaba/ESP32AudioLibrary
+	url = https://github.com/macaba/ESP32AudioLibrary.git
